@@ -16,9 +16,14 @@ app.get('/users', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error fetching users');
+    if (error.response) {
+      res.status(error.response.status).json({ error: error.response.data });
+    } else {
+      res.status(500).send('Error interno al obtener el usuario');
+    }
   }
-});
+  }
+);
 
 app.get('/books', async (req, res) => {
   try {
@@ -26,9 +31,28 @@ app.get('/books', async (req, res) => {
     res.json(response.data);
   } catch (error) {
     console.error(error);
-    res.status(500).send('Error fetching books');
+    if (error.response) {
+      res.status(error.response.status).json({ error: error.response.data });
+    } else {
+      res.status(500).send('Error interno al obtener los libros');
+    }
   }
 });
+
+app.get('/users/:id', async (req, res) => { 
+    const { id } = req.params;
+    try {
+        const response = await axios.get(`${urlUsers}/${id}`);
+        res.json(response.data);
+    } catch (error) {
+        console.error(error);
+        if (error.response) {
+          res.status(error.response.status).json({ error: error.response.data });
+        } else {
+          res.status(500).send('Error interno al obtener el id del usuario');
+        }
+      }
+    });
 
 
 app.listen(port, () => {
