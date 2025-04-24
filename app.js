@@ -38,7 +38,6 @@ app.get('/books', async (req, res) => {
     }
   }
 });
-
 app.get('/users/:id', async (req, res) => { 
     const { id } = req.params;
     try {
