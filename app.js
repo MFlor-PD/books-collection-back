@@ -56,3 +56,4 @@ app.get('/users/:id', async (req, res) => {
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
 });
+//se puede hacer un routes para hacerlo mas limpio
